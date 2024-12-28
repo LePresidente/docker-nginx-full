@@ -4,7 +4,7 @@ ARG BASE_IMAGE=nginxproxymanager/nginx-full:latest
 # Certbot Builder
 #############
 
-FROM debian:bookworm-slim as certbotbuilder
+FROM debian:bookworm-slim AS certbotbuilder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -36,12 +36,12 @@ RUN curl -L 'https://bootstrap.pypa.io/get-pip.py' | python3
 
 RUN pip install --no-cache-dir --upgrade pyopenssl \
 	&& pip install --no-cache-dir cffi certbot cryptography \
-	&& pip install tldextract
+	&& pip install tldextract zope
 
 #############
 # Final Image
 #############
-FROM $BASE_IMAGE as final
+FROM $BASE_IMAGE AS final
 ARG BASE_IMAGE
 ARG TARGETPLATFORM
 
